@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAIFA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background-color: #0a1f0a;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .barra-topo {
+            background-color: #336043;
+            width: 100%;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: space-between; /* Distribui o espaço entre logo e texto */
+        }
+
+        .barra-topo img {
+            height: 110px;
+            width: auto;
+            max-width: 400px;
+        }
+
+        .texto-barra {
+            font-family: 'Noto Serif Display', serif;
+            font-weight: 500;
+            text-align: right; /* Alinha o texto à direita */
+        }
+
+        .texto-barra h1 {
+            color: white;
+            font-size: 1.8em;
+            margin: 0;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .texto-barra h1:hover {
+            color: #fdfcfb;
+        }
+
+        .texto-barra p {
+            color: #fdfcfb;
+            font-size: 1em;
+            margin: 5px 0 0 0;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Noto Serif Display', serif;
+            font-weight: 500;
+        }
+
+        h1 {
+            color: #fdfcfb;
+            text-align: center;
+            margin: 30px 0;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            color: #fdfcfb;
+            border-bottom: 2px solid #2E8B57;
+            padding-bottom: 10px;
+            font-size: 2em;
+        }
+
+        h3 {
+            color: #98FB98;
+            font-size: 1.5em;
+        }
+
+        .conteudo {
+            padding: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .eventos {
+            display: flex;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .evento {
+            background: #1e3a1e;
+            padding: 20px;
+            border-radius: 10px;
+            flex: 1;
+            min-width: 300px;
+            border-left: 4px solid #fdfcfb;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .botao-instagram {
+            display: inline-block;
+            background: linear-gradient(45deg, #b101f0, #fd00c4, #fe0178);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 10px 10px 0;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .botao-facebook {
+            display: inline-block;
+            background: linear-gradient(45deg, #1877F2, #3b5998, #4267B2);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 0;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .botao-instagram:hover, .botao-facebook:hover {
+            transform: scale(1.05);
+            color: white;
+            box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+        }
+
+        .destaque {
+            background: #1e3a1e;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 2px solid #fdfcfb;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Estilos para a secção de membros */
+        .aba-membros {
+            margin: 40px 0;
+        }
+
+        .botao-membros {
+            background: #2E8B57;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .botao-membros:hover {
+            background: #3da56d;
+        }
+
+        .botao-membros::after {
+            content: "▼";
+            float: right;
+            transition: transform 0.3s;
+        }
+
+        .botao-membros.ativo::after {
+            transform: rotate(180deg);
+        }
+
+        .lista-membros {
+            background: #1e3a1e;
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .lista-membros.ativo {
+            padding: 20px;
+            max-height: 5000px;
+        }
+
+        .membros-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .membro {
+            background: #2a4d2a;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #fdfcfb;
+        }
+
+        .foto-membro {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fdfcfb;
+            margin: 0 auto 10px auto;
+            background-color: #1e3a1e;
+        }
+
+        .nome-membro {
+            font-weight: bold;
+            color: #fdfcfb;
+            margin-bottom: 5px;
+        }
+
+        .redes-sociais {
+            margin: 20px 0;
+        }
+
+        .redes-sociais-contactos {
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        .evento h3 {
+            margin-top: 0;
+        }
+
+        /* Novas secções */
+        .calendario {
+            background: #1e3a1e;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 2px solid #fdfcfb;
+        }
+
+        .galeria {
+            margin: 40px 0;
+        }
+
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .galeria img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #fdfcfb;
+            transition: transform 0.3s;
+        }
+
+        .galeria img:hover {
+            transform: scale(1.05);
+        }
+
+        .contactos {
+            background: #1e3a1e;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 2px solid #fdfcfb;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .barra-topo {
+                height: 100px;
+                padding: 0 15px;
+            }
+            
+            .barra-topo img {
+                height: 80px;
+                max-width: 300px;
+            }
+            
+            .texto-barra h1 {
+                font-size: 1.5em;
+            }
+            
+            .texto-barra p {
+                font-size: 0.9em;
+            }
+            
+            .logo-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .texto-barra {
+                text-align: center;
+                margin-top: 10px;
+            }
+            
+            .eventos {
+                flex-direction: column;
+            }
+            
+            .membros-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .redes-sociais-contactos {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="barra-topo">
+        <div class="logo-container">
+            <img src="logo_mordomos_faifa.png" alt="MORDOMOS Faifa 2026">
+            <div class="texto-barra">
+                <h1 onclick="irParaLocalizacao()">Faifa</h1>
+                <p></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="conteudo">
+        <div class="destaque">
+            <h2>Bem-vindos à nossa jornada!</h2>
+            <p><strong>Olá a todos!</strong></p>
+            <p>É com enorme alegria que nos apresentamos como os Mordomos de Santo Antão 2026. Somos um grupo de jovens prontos para abraçar esta tradição com toda a dedicação. Queremos manter bem viva a festa que tanto significa para a nossa aldeia e para todos os que, de perto ou de longe, se juntam a nós ano após ano.</p>
+            <p>Queremos deixar uma palavra de agradecimento à Comissão de Festas de Faifa pelo excelente trabalho realizado nos últimos 8 anos, à A S C R M de Faifa pela confiança que nos depositaram e a todos os Fafrenses que, de uma forma ou de outra, nos têm ajudado no nosso percurso até aqui.</p>
+            <p>Sabemos bem a responsabilidade que temos nas mãos, mas também sabemos que temos a força e a vontade necessárias para a levar por diante.</p>
+            <p>Agora contamos com todos para, juntos, tornarmos este caminho até à festa ainda mais especial. A partir de agora é tempo de arregaçar as mangas e pôr mãos à obra.</p>
+            <p><strong>Viva Faifa! ❤</strong></p>
+        </div>
+
+        <div class="calendario">
+            <h2>📅 Calendário de Eventos</h2>
+            <div class="eventos">
+                <div class="evento">
+                    <h3>🎄 RIFAS NATALÍCIAS</h3>
+                    <p><strong>Habilita-te a ganhar um Cobre de Natal!</strong></p>
+                    <p><strong>Data limite:</strong> 20/12/2025</p>
+                    <p><strong>SORTEIO:</strong> 20 de Dezembro de 2025</p>
+                    <p>1€ por rifa</p>
+                    <p><em>Ajude a Mordomia do Santo!</em></p>
+                </div>
+                
+                <div class="evento">
+                    <h3>💃 BAILE DE NOVEMBRO</h3>
+                    <p><strong>Festa de Gala em Honra de Santo Antão</strong></p>
+                    <p><strong>Data:</strong> 01 de Novembro de 2025</p>
+                    <p><strong>Hora:</strong> 21h30</p>
+                    <p><strong>Local:</strong> Salão da Irmandade</p>
+                    <p><strong>Animação:</strong> Orquestra Típica de Quinjão</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="aba-membros">
+            <h2>👥 Nossa Equipa</h2>
+            <button class="botao-membros" onclick="toggleMembros()">Ver Membros dos Mordomos</button>
+            <div class="lista-membros" id="listaMembros">
+                <div class="membros-grid" id="gridMembros">
+                    <!-- Os membros serão adicionados aqui via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="galeria">
+            <h2>📸 Momentos da Nossa Mordomia</h2>
+            <p>Registos fotográficos dos nossos eventos e atividades</p>
+            <div class="galeria-grid">
+                <img src="galeria/foto1.jpg" alt="Evento 1" onerror="this.style.display='none'">
+                <img src="galeria/foto2.jpg" alt="Evento 2" onerror="this.style.display='none'">
+                <img src="galeria/foto3.jpg" alt="Evento 3" onerror="this.style.display='none'">
+                <img src="galeria/foto4.jpg" alt="Evento 4" onerror="this.style.display='none'">
+            </div>
+        </div>
+
+        <div class="contactos">
+            <h2>📞 Como Entrar em Contacto</h2>
+            <p>Para nos contactar, basta enviar uma mensagem através das nossas redes sociais!</p>
+            <p>Estamos sempre disponíveis para responder às vossas questões e partilhar informações sobre os nossos eventos.</p>
+            <div class="redes-sociais-contactos">
+                <a href="https://instagram.com/mordomos_faifa2026" class="botao-instagram" target="_blank">
+                    📱 Enviar Mensagem no Instagram
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61579925717198&locale=pt_PT" class="botao-facebook" target="_blank">
+                    📘 Enviar Mensagem no Facebook
+                </a>
+            </div>
+        </div>
+
+        <h2>Sobre Nós</h2>
+        <p>Os Mordomos de Santo Antão 2026 - FAIFA são um grupo dedicado à organização das festividades em honra do nosso padroeiro. Trabalhamos com paixão e devoção para manter vivas as tradições da nossa comunidade.</p>
+    </div>
+
+    <script>
+        function irParaLocalizacao() {
+            window.open('https://www.google.com/maps/place/Faifa,+Ester+de+Cima,+Castro+Daire/@40.9509674,-8.0146198,15z/data=!3m1!4b1!4m6!3m5!1s0xd23590847e946ad:0x5c32daec1fcdff0f!8m2!3d40.9509522!4d-8.0043201!16s%2Fg%2F120y8k14?entry=ttu&g_ep=EgoyMDI1MTEyMy4xIKXMDSoASAFQAw%3D%3D', '_blank');
+        }
+
+        function toggleMembros() {
+            const lista = document.getElementById('listaMembros');
+            const botao = document.querySelector('.botao-membros');
+            
+            lista.classList.toggle('ativo');
+            botao.classList.toggle('ativo');
+        }
+
+        function carregarMembros() {
+            const membros = [
+                { nome: "Beatriz Rodrigues", foto: "fotos_membros/beatriz_rodrigues.jpg" },
+                { nome: "Catarina Oliveira", foto: "fotos_membros/catarina_oliveira.jpg" },
+                { nome: "David Casaca", foto: "fotos_membros/david_casaca.jpg" },
+                { nome: "Gonçalo Silva", foto: "fotos_membros/goncalo_silva.jpg" },
+                { nome: "João Pedro", foto: "fotos_membros/joao_pedro.jpg" },
+                { nome: "Lourenço Saavedra", foto: "fotos_membros/lourenco_saavedra.jpg" },
+                { nome: "Mariana Pereira", foto: "fotos_membros/mariana_pereira.jpg" },
+                { nome: "Mariana Ribeiro", foto: "fotos_membros/mariana_ribeiro.jpg" },
+                { nome: "Rafael Ribeiro", foto: "fotos_membros/rafael_ribeiro.jpg" },
+                { nome: "Rodrigo Correia", foto: "fotos_membros/rodrigo_correia.jpg" },
+                { nome: "Sofia Almeida", foto: "fotos_membros/sofia_almeida.jpg" }
+            ];
+            
+            const grid = document.getElementById('gridMembros');
+            grid.innerHTML = '';
+            
+            membros.forEach(membro => {
+                const div = document.createElement('div');
+                div.className = 'membro';
+                
+                div.innerHTML = `
+                    <img src="${membro.foto}" alt="${membro.nome}" class="foto-membro" 
+                         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzFlM2ExZSIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSIjOTBFRTkwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iMC4zNWVtIj5Gb3RvPC90ZXh0Pjwvc3ZnPg=='">
+                    <div class="nome-membro">${membro.nome}</div>
+                `;
+                
+                grid.appendChild(div);
+            });
+        }
+
+        // Carrega os membros quando a página abre
+        document.addEventListener('DOMContentLoaded', function() {
+            carregarMembros();
+        });
+    </script>
+</body>
+</html>

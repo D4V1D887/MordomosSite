@@ -1,0 +1,38 @@
+
+h3{
+    color: orange;
+}
+
+p{
+    color: crimson;
+    margin-left: 20px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode','Lucida Grande','Lucida Sans',Arial, sans-serif ;
+}
+
+.ctesp{
+    color:greenyellow;
+    font-size: 20px;
+}
+
+#site{
+    color:rgb(7, 26, 233);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 30px;
+}
+
+a{
+    text-decoration: none;
+    font-size: 25px;
+}
+
+a:link{
+    color: red;
+}
+
+a:visited{
+    color:white;
+}
+
+a:hover{
+    color: yellow;
+}
