@@ -91,6 +91,48 @@
             margin: 0 auto;
         }
 
+        /* ESTILO ESPECÍFICO PARA O QUADRADO COM IMAGEM DE FUNDO */
+        .quadrado-texto {
+            position: relative;
+            background-color: rgba(30, 58, 30, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 2px solid #fdfcfb;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            z-index: 1;
+        }
+        /* foto background do texto do inicio */
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('imagem_de_faifa.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .quadrado-texto p {
+            line-height: 1.7;
+            text-align: justify;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            color: #fdfcfb;
+            position: relative;
+            z-index: 2;
+        }
+
+        .quadrado-texto h2 {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Resto do CSS permanece igual */
         .eventos {
             display: flex;
             gap: 20px;
@@ -427,22 +469,28 @@
             .video-wrapper {
                 grid-template-columns: 1fr;
             }
+            
+            .quadrado-texto {
+                padding: 25px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="barra-topo">
         <div class="logo-container">
-            <img src="logo_mordomos_faifa.png" alt="MORDOMOS Faifa 2026">
+            <img src="fotos_membros/logo_mordomos_faifa.png" alt="MORDOMOS Faifa 2026">
             <div class="texto-barra">
-                <h1 onclick="irParaLocalizacao()">📍Faifa</h1>
+                <h1 onclick="irParaLocalizacao()">Faifa</h1>
                 <p></p>
             </div>
         </div>
     </div>
 
     <div class="conteudo">
-        <div class="destaque">
+        <!-- QUADRADO COM IMAGEM DE FUNDO -->
+        <div class="quadrado-texto">
+            <div class="background-image"></div>
             <h2>Bem-vindos à nossa jornada!</h2>
             <p><strong>Olá a todos!</strong></p>
             <p>É com enorme alegria que nos apresentamos como os Mordomos de Santo Antão 2026. Somos um grupo de jovens prontos para abraçar esta tradição com toda a dedicação. Queremos manter bem viva a festa que tanto significa para a nossa aldeia e para todos os que, de perto ou de longe, se juntam a nós ano após ano.</p>
@@ -452,6 +500,7 @@
             <p><strong>Viva Faifa! ❤</strong></p>
         </div>
 
+        <!-- Resto do conteúdo permanece igual -->
         <div class="aba-eventos">
             <h2>🎭 Próximos Eventos</h2>
             <button class="botao-eventos" onclick="toggleEventos()">Ver Próximos Eventos</button>
@@ -525,12 +574,12 @@
                     <div class="video-wrapper">
                         <div class="video-item">
                             <video controls>
-                                <source src="em_faifa2.mp4" type="video/mp4">
+                                <source src=em_faifa2.mp4" type="video/mp4">
                                 O teu browser não suporta o vídeo.
                             </video>
                             <p class="video-descricao">Momento especial do baile</p>
                             
-                            <img src="mordomos_foto1.jpeg" alt="Momento do baile com Orquestra Típica de Quinhão" class="imagem-baile">
+                            <img src=mordomos_foto1.jpeg" alt="Momento do baile com Orquestra Típica de Quinhão" class="imagem-baile">
                         </div>
                         <div class="video-item">
                             <video controls>
@@ -682,8 +731,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
